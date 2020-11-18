@@ -22,32 +22,29 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">{% block titulo_form %}Login N & JD{% endblock %}</h3></div>
                                     <div class="card-body">
                                         {% block formulario %}
-                                        <form>
-                                            {% csrf_token %}
+                                        <form method="POST">{% csrf_token %}
+                                            {% if form.non_fields.error %}
+                                                <div class="alert alert-danger alert-dismissible" role="alert"></div>
+
+                                            {% endif %}
+
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                <input class="form-control py-4" id="inputEmailAddress" type="email" placeholder="Enter email address" />
+                                                <label class="small mb-1" >Email</label>
+                                                {{form.username}}
                                             </div>
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputPassword">Password</label>
-                                                <input class="form-control py-4" id="inputPassword" type="password" placeholder="Enter password" />
+                                                <label class="small mb-1">Password</label>
+                                                {{form.password}}
                                             </div>
                                             <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Forgot Password?</a>
-                                                <a class="btn btn-primary" href="index.html">Login</a>
+                                                <button type="submit" class="btn btn-primary btn-block"> Iniciar Sesión </button>
                                             </div>
                                         </form>
                                         {% endblock %}
                                     </div>
                                     {% block url_next %}
                                     <div class="card-footer text-center">
-                                        <div class="small"><a href="{% url 'Registrar' %}">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="{% url 'Tienda:Registrar' %}">Need an account? Sign up!</a></div>
                                     </div>
                                     {% endblock %}
                                 </div>

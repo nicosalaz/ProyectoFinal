@@ -7,10 +7,16 @@ class Producto(models.Model):
     contenido = models.CharField(max_length=100,null=False,blank=False)
     especificacion = models.TextField(max_length=100,null=False,blank=False)
 
+    def __str__(self):
+        return self.nombre
+
 class Categoria(models.Model):
     id_categoria = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50, null=False, blank=False)
     especificacion = models.TextField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
 
 class Inventario(models.Model):
     id_inventario = models.AutoField(primary_key=True)

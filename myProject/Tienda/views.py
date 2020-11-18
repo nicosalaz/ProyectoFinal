@@ -1,18 +1,23 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .forms import Cliente_form
-from .models import Cliente
-from django.views.generic import TemplateView,CreateView
+from .models import Cliente,Inventario
+from django.views.generic import TemplateView,CreateView,ListView
 from  django.urls import reverse_lazy
 # Create your views here.
 
-class Index(TemplateView):
+class Index(ListView):
+    model = Inventario
     template_name = 'Tienda/index.html'
+    queryset = Inventario.objects.all()
 
 class Registrar(CreateView):
     model = Cliente
     form_class = Cliente_form
     template_name = 'Tienda/register.html'
-    success_url = reverse_lazy('Login')
+    success_url = reverse_lazy('login')
+
+#class ListarProductos(ListView):
+
 
 # def registrar(request):
 #     #return render(request,'Tienda/register.html')

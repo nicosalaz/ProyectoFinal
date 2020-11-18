@@ -4,21 +4,24 @@ from .models import Cliente
 class Cliente_form(forms.ModelForm):
     class Meta:
          model = Cliente
-         fields = ['identificacion','nombre','apellido','telefono','direccion','fecha_nacimiento',
-                  'usuario','password']
-         label = {'identificacion':'Identificacion',
-                  'nombre':'Nombre',
-                  'apellido':'Apellido',
-                  'telefono':'Telefono',
-                  'direccion':'Dirección',
-                  'fecha_nacimiento':'Fecha Nacimiento',
-                  'usuario':'Usuario',
-                  'password':'Password'}
+
+         fields = ['identificacion','nombre','apellido','telefono','direccion','fecha_nacimiento','usuario','password']
+
+         label = {'identificacion':'identificacion',
+                  'nombre':'nombre',
+                  'apellido':'apellido',
+                  'telefono':'telefono',
+                  'direccion':'direccion',
+                  'fecha_nacimiento': 'fecha_nacimiento',
+                  'usuario': 'usuario',
+                  'password': 'password'
+                  }
+
          widgets ={
              'identificacion': forms.NumberInput(
                  attrs={
                      'class': 'form-control',
-                     'placeholder': 'identificacion',
+                     'placeholder': 'Identificacion',
                      'autocomplete': 'off'
                  }),
              'nombre': forms.TextInput(
@@ -45,21 +48,23 @@ class Cliente_form(forms.ModelForm):
                      'placeholder': 'Direccion',
                      'autocomplete': 'off'
                  }),
-             'password':forms.PasswordInput(
+             'fecha_nacimiento': forms.DateInput(
                  attrs={
-                     'class':'form-control',
-                     'placeholder':'Password',
-                     'autocomplete':'off'
+                     'class': 'form-control',
+                     'type':'date',
+                     'placeholder': 'Fecha_nacimiento',
+                     'autocomplete': 'off'
                  }),
-             'usuario': forms.EmailInput(attrs={
-                 'class': 'form-control',
-                 'placeholder': 'Email',
-                 'autocomplete': 'off'
-             }),
-             'fecha_nacimiento': forms.DateInput(attrs={
-                 'type': 'date',
-                 'class': 'form-control',
-                 'placeholder': 'Fecha Nacimiento',
-                 'autocomplete': 'off'
-             }),
+             'usuario': forms.EmailInput(
+                 attrs={
+                     'class': 'form-control',
+                     'placeholder': 'Usuario',
+                     'autocomplete': 'off'
+                 }),
+             'password': forms.PasswordInput(
+                 attrs={
+                     'class': 'form-control',
+                     'placeholder': 'Password',
+                     'autocomplete': 'off'
+                 })
          }

@@ -44,8 +44,8 @@
             </div>
         </div>
     </div>
-    <div class="form-row">
-        <div class="col-lg">
+     <div class="form-row">
+        <div class="col-md-15">
             <div class="form-group">
                 {{form.fecha_nacimiento.label}}
                 {{form.fecha_nacimiento}}
@@ -66,12 +66,14 @@
             </div>
         </div>
     </div>
-    <div class="form-group mt-4 mb-0"><button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button></div>
+    <div class="form-group ">
+        <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
+    </div>
 </form>
 {% endblock %}
 {% block url_next %}
     <div class="card-footer text-center">
-        <div class="small"><a href="{% url 'Login' %}">Have an account? Go to login</a></div>
+        <div class="small"><a href="{% url 'login' %}">Have an account? Go to login</a></div>
     </div>
 {% endblock %}
 <!--<!DOCTYPE html>
