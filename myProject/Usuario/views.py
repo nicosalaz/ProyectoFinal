@@ -30,4 +30,4 @@ class Login(FormView):
 
 def logout_usuario(request):
     logout(request)
-    return HttpResponseRedirect('/accounts/login/')
+    return HttpResponseRedirect('/Indexlog/')

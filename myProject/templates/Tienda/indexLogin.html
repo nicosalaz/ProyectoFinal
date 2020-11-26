@@ -1,0 +1,28 @@
+{% extends "Tienda/index.html" %}
+{% block opciones %}
+<a class="dropdown-item" href="{% url 'login' %}">Login</a>
+{% endblock %}
+{% block productos %}
+    <div class="row">
+
+        {% if object_list %}
+        {% for inven in object_list %}
+        <div class="col-xl-3 col-md-6">
+            <div class="card text-black mb-4">
+                <div class="card-body"><strong>Producto: </strong>{{ inven.persona_id }}</div>
+                <div class="card-body"><strong>Categoria: </strong>{{ inven.categoria_id }}</div>
+                <div class="card-body"><strong>Precio: $</strong>{{ inven.precio_producto }}</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    {% block carrito %}
+                    <a class="small text-black stretched-link" href="{% url 'login' %}" >agregar al carrito</a>
+                    {% endblock %}
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h4>No Hay Productos en el inventario</h4>
+        {% endif %}
+    </div>
+{% endblock %}

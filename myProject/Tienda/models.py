@@ -23,6 +23,9 @@ class Inventario(models.Model):
     cantidad = models.FloatField(blank=False,null=False)
     persona_id = models.ForeignKey(Producto,on_delete=models.CASCADE,null=False)
     categoria_id = models.ForeignKey(Categoria,on_delete=models.CASCADE,null=False)
+    precio_producto = models.IntegerField(blank=False,null=False)
+
+
 
 class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
@@ -37,6 +40,7 @@ class Cliente(models.Model):
 
 class Carrito(models.Model):
     id_carrito = models.AutoField(primary_key = True)
-    cantidad_producto = models.IntegerField(null=False,blank=False)
+    cantidad_producto = models.IntegerField(null=False,blank=False,default=1)
     cliente_id = models.ForeignKey(Cliente,on_delete=models.CASCADE,null=False)
     inventario_id = models.ForeignKey(Inventario,on_delete=models.CASCADE)
+    precio_unidad = models.IntegerField(null=False,blank=False)
