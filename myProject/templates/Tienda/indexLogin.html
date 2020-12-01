@@ -13,7 +13,7 @@
                 <div class="card-body"><strong>Categoria: </strong>{{ inven.categoria_id }}</div>
                 <div class="card-body"><strong>Precio: $</strong>{{ inven.precio_producto }}</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    {% block carrito %}
+                    {% block detalle %}
                     <a class="small text-black stretched-link" href="{% url 'login' %}" >agregar al carrito</a>
                     {% endblock %}
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>

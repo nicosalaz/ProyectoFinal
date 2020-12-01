@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cliente
+from .models import Cliente,Carrito
 
 class Cliente_form(forms.ModelForm):
     class Meta:
@@ -68,3 +68,40 @@ class Cliente_form(forms.ModelForm):
                      'autocomplete': 'off'
                  })
          }
+class Carrito_form(forms.ModelForm):
+    class Meta:
+        model = Carrito
+        fields = ['cantidad_producto','cliente_id','inventario_id','precio_unidad']
+
+        label = {'cantidad_producto': 'cantidad_producto',
+                 'cliente_id': 'cliente_id',
+                 'inventario_id': 'inventario_id',
+                 'precio_unidad': 'precio_unidad'
+
+                 }
+        widgets = {
+            'cantidad_producto': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'cantidad producto',
+                    'autocomplete': 'off'
+                }),
+            'cliente_id': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'precio_unidad',
+                    'autocomplete': 'off'
+                }),
+            'inventario_id': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'inventario_id',
+                    'autocomplete': 'off'
+                }),
+            'precio_unidad': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'precio_unidad',
+                    'autocomplete': 'off'
+                })
+        }

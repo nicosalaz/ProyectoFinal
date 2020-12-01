@@ -58,23 +58,24 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
+                        {% block titulo_pro %}
                         <div>
                             <h1 class="mt-4 text-grey">Productos</h1>
                         </div>
+                        {% endblock %}
                         {% block productos%}
                         <div class="row">
                             {% csrf_token %}
-                            {% if posts %}
-                            {% for inven in posts %}
+                            {% if object_list %}
+                            {% for inven in object_list %}
                             <div class="col-xl-3 col-md-6">
                                 <div class="card text-black mb-4">
                                     <div class="card-body"><strong>Producto: </strong>{{ inven.persona_id }}</div>
                                     <div class="card-body"><strong>Categoria: </strong>{{ inven.categoria_id }}</div>
                                     <div class="card-body"><strong>Precio: $</strong>{{ inven.precio_producto }}</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        {% block carrito%}
-                                        <button type="button" class="btn btn-primary btn lg" onclick="agregar_carrito()">Agregar al Carrito</button>
-
+                                        {% block detalle %}
+                                        <a href="{% url 'detalle' inven.pk %}">Detalle</a>
                                         {% endblock %}
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
@@ -84,6 +85,53 @@
                             {% else %}
                             <h4>No Hay Productos en el inventario</h4>
                             {% endif %}
+
+                            <!--<div class="col-xl-3 col-md-6">
+                                 <div class="card text-black mb-4">
+                                     <form action="POST">
+                                        {% csrf_token %}
+                                        <div class="form-row">
+                                            <div class="col-md-15">
+                                                <div class="form-group">
+                                                    <input type="text">
+                                                    {{formu.cantidad_producto.label}}
+                                                    {{formu.cantidad_producto}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-15">
+                                                <div class="form-group">
+                                                    {{formu.inventario_id.label}}
+                                                    {{formu.inventario_id}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-15">
+                                                <div class="form-group">
+                                                    {{formu.precio_producto.label}}
+                                                    {{formu.precio_producto}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-15">
+                                                <div class="form-group">
+                                                    {{formu.cliente_id.label}}
+                                                    {{formu.cliente_id}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <button type="submit" class="btn btn-primary btn-md">Crear Cuenta</button>
+                                         </div>
+                                    </form>
+                                 </div>
+                             </div>-->
+                            <!--
+                            -->
+
                         </div>
                         {% endblock %}
                     </div>
@@ -111,25 +159,5 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="{% static 'assets/demo/datatables-demo.js' %}"></script>
-        <script type="text/javascript">
-            function agregar_carrito(){
-                data = {
-                    'producto' : "{{ post.persona_id }}",
-                    'precio_unidad' : "{{ post.precio_producto}}",
-                    csrfmiddlewaretoken: $("[name = 'csrfmiddlewaretoken']").val()
-                }
-                $.ajax({
-                    data: data,
-                    url:"{% url 'Index' %}",
-                    type:'POST',
-                    success: function(response){
-                        console.log(response);
-                    },
-                    error: function(error){
-                        console.log(error);
-                    }
-                });
-            }
-        </script>
     </body>
 </html>

@@ -1,0 +1,47 @@
+{% extends "Tienda/index.html" %}
+{% load static %}
+{% block opciones %}
+<a class="dropdown-item" href="{% url 'login' %}">Login</a>
+{% endblock %}
+{% block titulo_pro %}
+    <div>
+        <h1 class="mt-4 text-grey"> Detalle de {{ object.persona_id}}</h1>
+    </div>
+{% endblock %}
+{% block productos %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <strong>Cantidad producto: </strong>
+                            <input type="number" value="1" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <strong>Codigo Usuario: </strong>
+                            <input type="number" value="{{ request.user.id }}" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <strong>Codigo producto: </strong>
+                            <input type="number" value="{{ data.id }}" disabled>
+                        </div>
+                    </div>
+                </div>
+                 <div class="form-row">
+                    <div class="col-md-15">
+                        <div class="form-group">
+                           <strong>Precio: $</strong>
+                            <input type="number" value="{{ data.precio_producto }}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </form>
+{% endblock %}
