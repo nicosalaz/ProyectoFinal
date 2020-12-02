@@ -78,6 +78,7 @@
                                     <div class="card-body"><strong>Producto: </strong>{{ inven.persona_id }}</div>
                                     <div class="card-body"><strong>Categoria: </strong>{{ inven.categoria_id }}</div>
                                     <div class="card-body"><strong>Precio: $</strong>{{ inven.precio_producto }}</div>
+                                    <div class="card-body"><strong>unidades Disponibles: </strong>{{ inven.cantidad }}</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         {% block detalle %}
                                         <a href="{% url 'detalle' inven.pk %}">Agregar a mi carrito</a>
