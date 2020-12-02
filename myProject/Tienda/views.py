@@ -97,6 +97,7 @@ class Eliminado(DeleteView):
 
     def get(self, request, pk,*args, **kwargs):
         self.object = Carrito.objects.get(id_carrito=pk)
+        self.object_dos = Carrito.objects.filter(estado=True).aggregate(Sum('precio_unidad'))
         self.template_name = 'Tienda/carrito_confirm_delete.html'
         self.data = {'inventario_id_pro': self.object.inventario_id.persona_id,
                      'precio_unidad': self.object.precio_unidad,

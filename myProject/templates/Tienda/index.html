@@ -81,7 +81,7 @@
                                     <div class="card-body"><strong>unidades Disponibles: </strong>{{ inven.cantidad }}</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         {% block detalle %}
-                                        <a href="{% url 'detalle' inven.pk %}">Agregar a mi carrito</a>
+                                        <a href="{% url 'detalle' inven.pk %}"><button type="submit" class="btn btn-primary btn-sm">Agregar a mi carrito</button></a>
                                         {% endblock %}
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
