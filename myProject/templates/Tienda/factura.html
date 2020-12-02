@@ -1,0 +1,28 @@
+{% extends "Tienda/index.html" %}
+{% load static %}
+{% block opciones %}
+<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+{% endblock %}
+{% block titulo_pro %}
+    <div>
+        <h1 class="mt-4 text-grey">Factura De Compra</h1>
+    </div>
+{% endblock %}
+{% block botones %}
+    <div class="sb-sidenav-menu-heading"> TU CARRITO:</div>
+    <div>
+        <a class="sb-sidenav-menu-heading"  href="{% url 'Index' %}"><i class="fas fa-home"></i> Index </a>
+    </div>
+
+{% endblock %}
+{% block productos %}
+
+     <div>
+        <h3 class="mt-4 text-grey">TOTAL = $ {{ object.precio_unidad__sum }} </h3>
+    </div>
+
+    <div>
+        <h1 class="mt-4 text-grey">Gracias por tu compra {{ user }} !</h1>
+    </div>
+
+{% endblock %}

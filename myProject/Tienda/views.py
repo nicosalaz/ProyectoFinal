@@ -2,8 +2,9 @@ from django.shortcuts import render,HttpResponse,redirect,HttpResponseRedirect
 from .forms import Cliente_form,Carrito_form
 from .models import Cliente,Inventario,Carrito
 from django.db.models import Q
-from django.views.generic import TemplateView,CreateView,ListView,DetailView,UpdateView
+from django.views.generic import DeleteView,CreateView,ListView,DetailView,UpdateView
 from  django.urls import reverse_lazy
+from django.db.models import Sum
 # Create your views here.
 
 class Index(ListView,CreateView):
@@ -48,6 +49,7 @@ class Detalle_producto(CreateView,DetailView):
     success_url = reverse_lazy('Index')
     def get(self, request, pk,*args, **kwargs):
         self.model = Inventario
+        self.template_name = 'Tienda/detalle.html'
         self.object = Inventario.objects.get(id_inventario=pk)
         self.data = {'cantidad_producto':1,
                      'cliente_id': 1 ,
@@ -56,18 +58,9 @@ class Detalle_producto(CreateView,DetailView):
         print(type(self.data))
         f = Carrito_form(self.data)
         f.save()
-        self.template_name = 'Tienda/detalle.html'
-        return render(request,self.template_name,{'data':self.data})
-
-    #def post(self, request,*args, **kwargs):
-
-        # form = self.form_class(request.POST)
-        # if form.is_valid():
-        #     form.save()
-        #     return HttpResponseRedirect(self.success_url)
-        # else:
-        #     print(form.errors)
-        # return super(Detalle_producto, self).post(request,*args, **kwargs)
+        self.object.cantidad = self.object.cantidad - 1
+        self.object.save()
+        return render(request,self.template_name,{'object':self.object})
 
 
 class Registrar(CreateView):
@@ -91,3 +84,39 @@ class Index_login(ListView):
                 categoria_id__gt=0
             ).distinct()
         return render(request,self.template_name,{'object_list':object_list})
+
+class Carrito_compra(ListView):
+    model = Carrito
+    template_name = 'Tienda/carrito_compra.html'
+    queryset = Carrito.objects.filter(estado = True)
+
+
+class Eliminado(DeleteView):
+    model = Carrito
+    success_url = ('Tienda/carrito_confirm_delete.html')
+
+    def get(self, request, pk,*args, **kwargs):
+        self.object = Carrito.objects.get(id_carrito=pk)
+        self.template_name = 'Tienda/carrito_confirm_delete.html'
+        self.data = {'inventario_id_pro': self.object.inventario_id.persona_id,
+                     'precio_unidad': self.object.precio_unidad,
+                     'inventario_id' : self.object.inventario_id.id_inventario
+                     }
+        obj_dos = Inventario.objects.get(id_inventario=self.data.get('inventario_id'))
+        self.object.estado = False
+        self.object.save()
+        obj_dos.cantidad = obj_dos.cantidad + 1
+        obj_dos.save()
+        return render(request,self.template_name,{'data':self.data})
+
+
+
+class Factura(DeleteView):
+    model = Carrito
+    success_url = ('Tienda/factura.html')
+
+    def get(self, request,*args, **kwargs):
+        self.object = Carrito.objects.filter(estado = True).aggregate(Sum('precio_unidad'))
+        self.dato = Carrito.objects.all().update(estado=False)
+        self.template_name = 'Tienda/factura.html'
+        return render(request,self.template_name,{'object':self.object})

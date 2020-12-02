@@ -1,10 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "Tienda/index.html" %}
+{% load static %}
+{% block opciones %}
+<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+{% endblock %}
+{% block titulo_pro %}
+    <div>
+        <h1 class="mt-4 text-grey"> Tu carrito de compra {{ user }}</h1>
+    </div>
+{% endblock %}
+{% block botones %}
+    <div class="sb-sidenav-menu-heading"> TU CARRITO:</div>
+    <div>
+        <a class="sb-sidenav-menu-heading"  href="{% url 'Index' %}"><i class="fas fa-home"></i> Index </a>
+    </div>
 
-</body>
-</html>
+{% endblock %}
+{% block productos %}
+    {% csrf_token %}
+    {% if object_list %}
+     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID cliente</th>
+                <th>ID producto</th>
+                <th>Precio unitario</th>
+                <th>Cantidad producto</th>
+                <th>opciones</th>
+
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><a href="{% url 'factura' %}"><button type="button" class="btn btn-success btn-md">Finalizar Compra</button></a></th>
+            </tr>
+        </tfoot>
+         <tbody>
+
+            {% for car in object_list %}
+            <tr>
+                <td>{{ car.cliente_id }}</td>
+                <td>{{ car.inventario_id.persona_id }}</td>
+                <td>$ {{ car.precio_unidad }}</td>
+                <td>{{ car.cantidad_producto }}</td>
+                <td><a href="{% url 'eliminado' car.pk %}"><button type="button" class="btn btn-danger btn-md">Eliminar</button></a></td>
+            </tr>
+            {% endfor %}
+
+         </tbody>
+     </table>
+    {% else %}
+        <div>
+            <h4 class="mt-4 text-grey"> No Tienes productos en tu carrito! </h4>
+        </div>
+    {% endif %}
+
+{% endblock %}

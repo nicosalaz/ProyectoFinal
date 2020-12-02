@@ -42,3 +42,4 @@ class Carrito(models.Model):
     cliente_id = models.IntegerField(null=False,blank=False)
     inventario_id = models.ForeignKey(Inventario,on_delete=models.CASCADE)
     precio_unidad = models.IntegerField(null=False,blank=False)
+    estado = models.BooleanField('activado/desactivado',default=True)

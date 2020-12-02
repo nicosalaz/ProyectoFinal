@@ -46,7 +46,12 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                     Bienvenido {{ user }}
                             </a>
+                            {% block botones %}
                             <div class="sb-sidenav-menu-heading"> TU CARRITO:</div>
+                            <div>
+                                <a class="sb-sidenav-menu-heading" href="{% url 'carrito' %}"><i class="fas fa-check"></i> ir a mi Carrito </a>
+                            </div>
+                            {% endblock %}
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -75,7 +80,7 @@
                                     <div class="card-body"><strong>Precio: $</strong>{{ inven.precio_producto }}</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         {% block detalle %}
-                                        <a href="{% url 'detalle' inven.pk %}">Detalle</a>
+                                        <a href="{% url 'detalle' inven.pk %}">Agregar a mi carrito</a>
                                         {% endblock %}
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
@@ -85,53 +90,6 @@
                             {% else %}
                             <h4>No Hay Productos en el inventario</h4>
                             {% endif %}
-
-                            <!--<div class="col-xl-3 col-md-6">
-                                 <div class="card text-black mb-4">
-                                     <form action="POST">
-                                        {% csrf_token %}
-                                        <div class="form-row">
-                                            <div class="col-md-15">
-                                                <div class="form-group">
-                                                    <input type="text">
-                                                    {{formu.cantidad_producto.label}}
-                                                    {{formu.cantidad_producto}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-15">
-                                                <div class="form-group">
-                                                    {{formu.inventario_id.label}}
-                                                    {{formu.inventario_id}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-15">
-                                                <div class="form-group">
-                                                    {{formu.precio_producto.label}}
-                                                    {{formu.precio_producto}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-15">
-                                                <div class="form-group">
-                                                    {{formu.cliente_id.label}}
-                                                    {{formu.cliente_id}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group ">
-                                            <button type="submit" class="btn btn-primary btn-md">Crear Cuenta</button>
-                                         </div>
-                                    </form>
-                                 </div>
-                             </div>-->
-                            <!--
-                            -->
-
                         </div>
                         {% endblock %}
                     </div>

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.contrib.auth.decorators import login_required
 from Usuario.views import Login,logout_usuario
-from Tienda.views import Index,Index_login,Detalle_producto
+from Tienda.views import Index,Index_login,Detalle_producto,Carrito_compra,Eliminado,Factura
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Tienda/',include(('Tienda.urls','Tienda'))),
@@ -26,4 +26,7 @@ urlpatterns = [
     path('accounts/login/',Login.as_view(),name= 'login'),
     path('logout/',login_required(logout_usuario),name='logout'),
     path('detalle/<int:pk>/',login_required(Detalle_producto.as_view()),name='detalle'),
+    path('carrito/',login_required(Carrito_compra.as_view()),name='carrito'),
+    path('eliminado/<int:pk>/',login_required(Eliminado.as_view()),name='eliminado'),
+    path('factura/',login_required(Factura.as_view()),name='factura')
 ]
