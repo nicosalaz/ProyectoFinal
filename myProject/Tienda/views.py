@@ -7,9 +7,8 @@ from  django.urls import reverse_lazy
 from django.db.models import Sum
 # Create your views here.
 
-class Index(ListView,CreateView):
+class Index(ListView):
     model = Inventario
-    form_class = Carrito_form
     template_name = 'Tienda/index.html'
     success_url = reverse_lazy('Index')
     queryset = Inventario.objects.filter(cantidad__gt=0)
@@ -41,10 +40,8 @@ class Index(ListView,CreateView):
     #         return HttpResponseRedirect(self.success_url)
     #     return super(Index, self).post(request,*args, **kwargs)
 
-class Detalle_producto(CreateView,DetailView):
+class Detalle_producto(DetailView):
     model = Carrito
-    form_class = Carrito_form
-    data = 0
     template_name = 'Tienda/detalle.html'
     success_url = reverse_lazy('Index')
     def get(self, request, pk,*args, **kwargs):
@@ -97,6 +94,7 @@ class Eliminado(DeleteView):
 
     def get(self, request, pk,*args, **kwargs):
         self.object = Carrito.objects.get(id_carrito=pk)
+        self.suma = Carrito.objects.filter(estado = True).aggregate(Sum('precio_unidad'))
         self.object_dos = Carrito.objects.filter(estado=True).aggregate(Sum('precio_unidad'))
         self.template_name = 'Tienda/carrito_confirm_delete.html'
         self.data = {'inventario_id_pro': self.object.inventario_id.persona_id,
