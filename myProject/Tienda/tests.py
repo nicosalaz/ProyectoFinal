@@ -1,10 +1,8 @@
-from django.test import TestCase
 from .models import *
-from .views import *
 from .forms import *
 import unittest
 
-class Test_models(unittest.TestCase):
+class Test_Tienda(unittest.TestCase):
 
     def setUp(self):
         self.form_cli = Cliente_form()
